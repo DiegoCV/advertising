@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ListingDataRepositoryAdapter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">advertising</a> &gt; <a href="index.source.html" class="el_package">co.com.agency.jpa.listing</a> &gt; <span class="el_source">ListingDataRepositoryAdapter.java</span></div><h1>ListingDataRepositoryAdapter.java</h1><pre class="source lang-java linenums">package co.com.agency.jpa.listing;
+
+import co.com.agency.jpa.dealer.DealerMapper;
+import co.com.agency.jpa.helper.AdapterOperations;
+import co.com.agency.model.dealer.Dealer;
+import co.com.agency.model.listing.Listing;
+import co.com.agency.model.listing.gateways.ListingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static co.com.agency.jpa.common.Constants.DRAFT;
+import static co.com.agency.jpa.common.Constants.PUBLISHED;
+
+@Repository
+public class ListingDataRepositoryAdapter extends AdapterOperations&lt;Listing, ListingData, UUID, ListingDataRepository&gt;
+ implements ListingRepository {
+
+    @Autowired
+    DealerMapper dealerMapper;
+
+    public ListingDataRepositoryAdapter(ListingDataRepository repository, ListingMapper mapper) {
+<span class="nc" id="L27">        super(repository, mapper);</span>
+<span class="nc" id="L28">    }</span>
+
+    @Override
+    public Listing update(Listing listing) {
+<span class="nc" id="L32">        ListingData listingData = this.toData(listing);</span>
+<span class="nc" id="L33">        listingData.setUpdateAt(new Date());</span>
+
+<span class="nc" id="L35">        return this.toEntity(repository.save(listingData));</span>
+    }
+
+    @Override
+    public List&lt;Listing&gt; getAllListingsByDealerAndState(Dealer dealer, String state) {
+<span class="nc" id="L40">        return this.toList(repository.findByDealerAndState(dealerMapper.toData(dealer), state));</span>
+    }
+
+    @Override
+    public long cantListingPublishedByDealer(Dealer dealer) {
+<span class="nc" id="L45">        return this.repository.countByDealerAndState(dealerMapper.toData(dealer), PUBLISHED);</span>
+    }
+
+    @Override
+    public Listing publishListing(Listing listing) {
+<span class="nc" id="L50">        return updateState(listing, PUBLISHED);</span>
+    }
+
+    @Override
+    public Listing unPublishListing(Listing listing) {
+<span class="nc" id="L55">        return updateState(listing, DRAFT);</span>
+    }
+
+    private Listing updateState(Listing listing, String state){
+<span class="nc" id="L59">        Optional&lt;ListingData&gt; byId = this.repository.findById(listing.getId());</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if(byId.isPresent()){</span>
+<span class="nc" id="L61">            ListingData ld = byId.get();</span>
+<span class="nc" id="L62">            ld.setState(state);</span>
+<span class="nc" id="L63">            listing = this.toEntity(this.repository.save(ld));</span>
+<span class="nc" id="L64">        }else {</span>
+<span class="nc" id="L65">            listing = null;</span>
+        }
+
+<span class="nc" id="L68">        return listing;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

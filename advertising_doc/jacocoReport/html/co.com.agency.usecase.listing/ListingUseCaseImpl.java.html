@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ListingUseCaseImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">advertising</a> &gt; <a href="index.source.html" class="el_package">co.com.agency.usecase.listing</a> &gt; <span class="el_source">ListingUseCaseImpl.java</span></div><h1>ListingUseCaseImpl.java</h1><pre class="source lang-java linenums">package co.com.agency.usecase.listing;
+
+import co.com.agency.common.ListingException;
+import co.com.agency.common.TierLimitException;
+import co.com.agency.model.dealer.Dealer;
+import co.com.agency.model.listing.Listing;
+import co.com.agency.model.listing.gateways.ListingRepository;
+import co.com.agency.model.tierlimit.TierLimit;
+import co.com.agency.model.tierlimit.gateways.TierLimitRepository;
+import co.com.agency.usecase.dealer.DealerUseCase;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Date;
+import java.util.List;
+
+import static co.com.agency.common.CommonExceptionMessages.LISTING_NOT_EXISTS;
+import static co.com.agency.common.CommonExceptionMessages.TIER_LIMIT_NOT_DEFINED;
+
+@RequiredArgsConstructor
+public class ListingUseCaseImpl implements ListingUseCase {
+
+    private final DealerUseCase dealerUseCase;
+    private final ListingRepository listingRepository;
+    private final TierLimitRepository tierLimitRepository;
+
+    @Override
+    public Listing save(Listing listing) {
+<span class="fc" id="L28">        dealerUseCase.thrownExceptionIfDealerNotExist(listing.getDealer());</span>
+<span class="fc" id="L29">        listing.setCreatedAt(new Date());</span>
+<span class="fc" id="L30">        return listingRepository.save(listing);</span>
+    }
+
+    @Override
+    public Listing update(Listing listing) {
+<span class="fc" id="L35">        Listing listing1 = listingRepository.findById(listing.getId());</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if(listing1 == null){</span>
+<span class="fc" id="L37">            throw new ListingException(LISTING_NOT_EXISTS);</span>
+        }
+<span class="fc" id="L39">        listing1.setPrice(listing.getPrice());</span>
+<span class="fc" id="L40">        listing1.setVehicle(listing.getVehicle());</span>
+<span class="fc" id="L41">        return listingRepository.update(listing1);</span>
+    }
+
+    @Override
+    public List&lt;Listing&gt; getAllListingsByDealerAndState(Dealer dealer, String state) {
+<span class="fc" id="L46">        return listingRepository.getAllListingsByDealerAndState(dealer, state);</span>
+    }
+
+    @Override
+    public Listing publishListing(Listing listing) {
+<span class="fc" id="L51">        Listing listing1 = listingRepository.findById(listing.getId());</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if(listing1 == null){</span>
+<span class="fc" id="L53">            throw new ListingException(LISTING_NOT_EXISTS);</span>
+        }
+<span class="fc" id="L55">        long cantListingPublishedByDealer = listingRepository.cantListingPublishedByDealer(listing1.getDealer());</span>
+<span class="fc" id="L56">        TierLimit lastTierLimitActive = tierLimitRepository.getLastTierLimitActive();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if(lastTierLimitActive == null){</span>
+<span class="fc" id="L58">            throw new TierLimitException(TIER_LIMIT_NOT_DEFINED);</span>
+        }
+<span class="fc" id="L60">        long tierLimit = lastTierLimitActive.getTier();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if(cantListingPublishedByDealer &gt;= tierLimit){</span>
+<span class="fc" id="L62">            throw new TierLimitException();</span>
+        }
+
+<span class="fc" id="L65">        return listingRepository.publishListing(listing);</span>
+    }
+
+    @Override
+    public Listing unPublishListing(Listing listing) {
+<span class="fc" id="L70">        Listing listing1 = listingRepository.unPublishListing(listing);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if(listing1 == null){</span>
+<span class="fc" id="L72">            throw new ListingException(LISTING_NOT_EXISTS);</span>
+        }
+
+<span class="fc" id="L75">        return listing1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

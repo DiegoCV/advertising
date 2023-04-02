@@ -1,0 +1,434 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/agency/api/v1/update-listing/{listingId}": {
+            "post": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Update the information of a listing to draft",
+                "description": "Update the information of a listing to draft",
+                "operationId": "updateListing",
+                "parameters": [
+                    {
+                        "name": "listingId",
+                        "in": "path",
+                        "description": "Information related to the id listing",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListingRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/un-publish-listing/{listingId}": {
+            "post": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Change the status of a listing to draft",
+                "description": "Change the status of a listing to draft",
+                "operationId": "unPublishListing",
+                "parameters": [
+                    {
+                        "name": "listingId",
+                        "in": "path",
+                        "description": "Information related to listing",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/set-tier-limit": {
+            "post": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Set the tier limit to publish listing",
+                "description": "Set the tier limit to publish listing",
+                "operationId": "setTierLimit",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TierLimitRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/publish-listing/{listingId}": {
+            "post": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Change the status of a listing to publish having the tier limit condition",
+                "description": "Change the status of a listing to publish having the tier limit condition",
+                "operationId": "publishListing",
+                "parameters": [
+                    {
+                        "name": "listingId",
+                        "in": "path",
+                        "description": "Information related to listing",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/create-listing/{dealerId}": {
+            "post": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Create a new listing with status draft default",
+                "description": "Create a new listing with status draft default",
+                "operationId": "createListing",
+                "parameters": [
+                    {
+                        "name": "dealerId",
+                        "in": "path",
+                        "description": "Information related to dealer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ListingRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/create-dealer": {
+            "post": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Create a new Dealer",
+                "description": "Create a new Dealer",
+                "operationId": "createDealer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DealerRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DealerResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/get-all-listing-by-dealer-and-state/{dealerId}/{state}": {
+            "get": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "To get the listings from a dealer and state",
+                "description": "To get the listings from a dealer and state",
+                "operationId": "getAllListingsByDealerAndState",
+                "parameters": [
+                    {
+                        "name": "dealerId",
+                        "in": "path",
+                        "description": "Information related to dealer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "path",
+                        "description": "Information related to listing",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ListingRequest": {
+                "type": "object",
+                "properties": {
+                    "vehicle": {
+                        "maxLength": 255,
+                        "minLength": 0,
+                        "type": "string",
+                        "example": "vehicle name"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "state": {
+                        "type": "string",
+                        "example": "state"
+                    }
+                },
+                "description": "Information related to listing"
+            },
+            "ListingResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "vehicleId": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "state": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TierLimitRequest": {
+                "type": "object",
+                "properties": {
+                    "tier": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": "Information related to TierLimit"
+            },
+            "DealerRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "maxLength": 255,
+                        "minLength": 0,
+                        "type": "string",
+                        "example": "Dealer name test"
+                    }
+                },
+                "description": "Information related to dealer"
+            },
+            "DealerResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "maxLength": 40,
+                        "minLength": 0,
+                        "type": "string",
+                        "example": "104e5459-176b-4874-ad57-3dce462f7fd3"
+                    },
+                    "name": {
+                        "maxLength": 255,
+                        "minLength": 0,
+                        "type": "string",
+                        "example": "Dealer name test"
+                    }
+                }
+            }
+        }
+    }
+}

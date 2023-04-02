@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "74a44094-90bb-4012-949d-e2d8cd6f54ac",
+		"name": "360Agency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create-dealer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"DiegoCV\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/create-dealer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"create-dealer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set-tier-limit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tier\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/set-tier-limit",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"set-tier-limit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-listing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vehicle\": \"BMW\",\r\n    \"price\": 123.456\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/create-listing/76881ede-15b8-43ff-aafc-46eed720aad5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"create-listing",
+						"76881ede-15b8-43ff-aafc-46eed720aad5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-listing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vehicle\": \"Renault 3\",\r\n    \"price\": 1283.456\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/update-listing/479a4dd5-c8ef-4323-988b-6042529e3b0f",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"update-listing",
+						"479a4dd5-c8ef-4323-988b-6042529e3b0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-listing-by-dealer-and-state",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/get-all-listing-by-dealer-and-state/cf55af1e-d9b1-4c65-a83a-2fe79f46cc1f/draft",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"get-all-listing-by-dealer-and-state",
+						"cf55af1e-d9b1-4c65-a83a-2fe79f46cc1f",
+						"draft"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "publish-listing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/publish-listing/479a4dd5-c8ef-4323-988b-6042529e3b0f",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"publish-listing",
+						"479a4dd5-c8ef-4323-988b-6042529e3b0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "un-publish-listing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/un-publish-listing/479a4dd5-c8ef-4323-988b-6042529e3b0f",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"un-publish-listing",
+						"479a4dd5-c8ef-4323-988b-6042529e3b0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api docs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"state\":\"draft\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/api-docs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

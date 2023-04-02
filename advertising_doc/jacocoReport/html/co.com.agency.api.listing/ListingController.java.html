@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ListingController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">advertising</a> &gt; <a href="index.source.html" class="el_package">co.com.agency.api.listing</a> &gt; <span class="el_source">ListingController.java</span></div><h1>ListingController.java</h1><pre class="source lang-java linenums">package co.com.agency.api.listing;
+
+import co.com.agency.api.listing.model.ListingRequest;
+import co.com.agency.api.listing.model.ListingResponse;
+import co.com.agency.model.dealer.Dealer;
+import co.com.agency.model.listing.Listing;
+import co.com.agency.usecase.listing.ListingUseCase;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping(value = &quot;/agency/api/v1&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+@AllArgsConstructor
+public class ListingController implements ListingOperations {
+
+    private ListingUseCase listingUseCase;
+
+    @Override
+    public ResponseEntity&lt;ListingResponse&gt; createListing(UUID dealerId, ListingRequest body) {
+<span class="fc" id="L28">        Listing listing = listingUseCase.save(Listing.builder().dealer(Dealer.builder().id(dealerId).build())</span>
+<span class="fc" id="L29">                .price(body.getPrice()).vehicle(body.getVehicle()).build());</span>
+
+<span class="fc" id="L31">        return new ResponseEntity&lt;ListingResponse&gt;(ListingResponse.builder().id(listing.getId())</span>
+<span class="fc" id="L32">                .vehicleId(listing.getVehicle()).price(listing.getPrice()).createdAt(listing.getCreatedAt())</span>
+<span class="fc" id="L33">                .build(), HttpStatus.OK);</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;List&lt;ListingResponse&gt;&gt; getAllListingsByDealerAndState(UUID dealerId, String status) {
+
+<span class="fc" id="L39">        return new ResponseEntity&lt;List&lt;ListingResponse&gt;&gt;(parse(listingUseCase.getAllListingsByDealerAndState(</span>
+<span class="fc" id="L40">                Dealer.builder().id(dealerId).build(), status)), HttpStatus.OK);</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;ListingResponse&gt; publishListing(UUID listingId) {
+
+<span class="fc" id="L46">        Listing request = Listing.builder().id(listingId).build();</span>
+<span class="fc" id="L47">        Listing listingPublished = listingUseCase.publishListing(request);</span>
+
+<span class="fc" id="L49">        return new ResponseEntity&lt;ListingResponse&gt;(ListingResponse.builder().id(listingPublished.getId())</span>
+<span class="fc" id="L50">                .vehicleId(listingPublished.getVehicle()).price(listingPublished.getPrice())</span>
+<span class="fc" id="L51">                .createdAt(listingPublished.getCreatedAt())</span>
+<span class="fc" id="L52">                .state(listingPublished.getState()).build(), HttpStatus.OK);</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;ListingResponse&gt; unPublishListing(UUID listingId) {
+<span class="fc" id="L57">        Listing request = Listing.builder().id(listingId).build();</span>
+<span class="fc" id="L58">        Listing listingPublished = listingUseCase.unPublishListing(request);</span>
+
+<span class="fc" id="L60">        return new ResponseEntity&lt;ListingResponse&gt;(ListingResponse.builder().id(listingPublished.getId())</span>
+<span class="fc" id="L61">                .vehicleId(listingPublished.getVehicle()).price(listingPublished.getPrice())</span>
+<span class="fc" id="L62">                .createdAt(listingPublished.getCreatedAt())</span>
+<span class="fc" id="L63">                .state(listingPublished.getState()).build(), HttpStatus.OK);</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;ListingResponse&gt; updateListing(UUID listingId, ListingRequest body) {
+<span class="fc" id="L68">        Listing listing = listingUseCase.update(Listing.builder().id(listingId)</span>
+<span class="fc" id="L69">                .price(body.getPrice()).vehicle(body.getVehicle()).build());</span>
+
+<span class="fc" id="L71">        return new ResponseEntity&lt;ListingResponse&gt;(ListingResponse.builder().id(listing.getId())</span>
+<span class="fc" id="L72">                .vehicleId(listing.getVehicle()).price(listing.getPrice()).createdAt(listing.getCreatedAt())</span>
+<span class="fc" id="L73">                .state(listing.getState()).build(), HttpStatus.OK);</span>
+    }
+
+    private List&lt;ListingResponse&gt; parse(List&lt;Listing&gt; listings){
+<span class="fc" id="L77">        List&lt;ListingResponse&gt; listingResponses = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (Listing listing: listings) {</span>
+<span class="fc" id="L79">            listingResponses.add(ListingResponse.builder().id(listing.getId())</span>
+<span class="fc" id="L80">                    .vehicleId(listing.getVehicle()).price(listing.getPrice()).createdAt(listing.getCreatedAt())</span>
+<span class="fc" id="L81">                    .state(listing.getState()).build());</span>
+<span class="fc" id="L82">        }</span>
+
+<span class="fc" id="L84">        return listingResponses;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
