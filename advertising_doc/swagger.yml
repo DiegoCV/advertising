@@ -12,7 +12,7 @@
     ],
     "paths": {
         "/agency/api/v1/update-listing/{listingId}": {
-            "post": {
+            "put": {
                 "tags": [
                     "advertising"
                 ],
@@ -66,13 +66,57 @@
             }
         },
         "/agency/api/v1/un-publish-listing/{listingId}": {
-            "post": {
+            "put": {
                 "tags": [
                     "advertising"
                 ],
                 "summary": "Change the status of a listing to draft",
                 "description": "Change the status of a listing to draft",
                 "operationId": "unPublishListing",
+                "parameters": [
+                    {
+                        "name": "listingId",
+                        "in": "path",
+                        "description": "Information related to listing",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/publish-listing/{listingId}": {
+            "put": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Change the status of a listing to publish having the tier limit condition",
+                "description": "Change the status of a listing to publish having the tier limit condition",
+                "operationId": "publishListing",
                 "parameters": [
                     {
                         "name": "listingId",
@@ -144,50 +188,6 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/agency/api/v1/publish-listing/{listingId}": {
-            "post": {
-                "tags": [
-                    "advertising"
-                ],
-                "summary": "Change the status of a listing to publish having the tier limit condition",
-                "description": "Change the status of a listing to publish having the tier limit condition",
-                "operationId": "publishListing",
-                "parameters": [
-                    {
-                        "name": "listingId",
-                        "in": "path",
-                        "description": "Information related to listing",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "uuid"
-                        }
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Wrong parameters or bad request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    },
-                    "200": {
-                        "description": "Operation successfully executed",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ListingResponse"
                                 }
                             }
                         }
@@ -337,6 +337,38 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ListingResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/agency/api/v1/get-all-dealer": {
+            "get": {
+                "tags": [
+                    "advertising"
+                ],
+                "summary": "Get all Dealer",
+                "description": "Get all Dealer",
+                "operationId": "getAllDealer",
+                "responses": {
+                    "400": {
+                        "description": "Wrong parameters or bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Operation successfully executed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DealerResponse"
                                 }
                             }
                         }

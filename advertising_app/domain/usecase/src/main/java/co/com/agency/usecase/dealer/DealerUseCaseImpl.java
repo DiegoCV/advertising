@@ -5,6 +5,8 @@ import co.com.agency.model.dealer.Dealer;
 import co.com.agency.model.dealer.gateways.DealerRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import static co.com.agency.common.CommonExceptionMessages.DEALER_NOT_EXISTS;
 
 @RequiredArgsConstructor
@@ -23,5 +25,10 @@ public class DealerUseCaseImpl implements DealerUseCase {
         if(dealer1 == null){
             throw new DealerException(DEALER_NOT_EXISTS);
         }
+    }
+
+    @Override
+    public List<Dealer> getAllDealer() {
+        return dealerRepository.findAll();
     }
 }

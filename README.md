@@ -21,8 +21,7 @@ Project structure:
 ├── docker-compose.yaml
 └── README.md
 ```
-
-[_compose.yaml_](compose.yaml)
+[_docker-compose.yaml_](docker-compose.yaml)
 ```
 services:
   advertising_app:
@@ -60,6 +59,24 @@ Create a new Dealer
 ##### Description:
 
 Create a new Dealer
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Operation successfully executed |
+| 400 | Wrong parameters or bad request |
+
+### /agency/api/v1/get-all-dealer
+
+#### GET
+##### Summary:
+
+Get all Dealer
+
+##### Description:
+
+Get all Dealer
 
 ##### Responses
 
@@ -111,7 +128,7 @@ Create a new listing with status draft default
 | 400 | Wrong parameters or bad request |
 ### /agency/api/v1/update-listing/{listingId}
 
-#### POST
+#### PUT
 ##### Summary:
 
 Update the information of a listing to draft
@@ -135,7 +152,7 @@ Update the information of a listing to draft
 
 ### /agency/api/v1/un-publish-listing/{listingId}
 
-#### POST
+#### PUT
 ##### Summary:
 
 Change the status of a listing to draft
@@ -160,7 +177,7 @@ Change the status of a listing to draft
 
 ### /agency/api/v1/publish-listing/{listingId}
 
-#### POST
+#### PUT
 ##### Summary:
 
 Change the status of a listing to publish having the tier limit condition

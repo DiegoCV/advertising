@@ -21,9 +21,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -60,6 +62,14 @@ class DealerControllerTest {
                         post("/agency/api/v1/create-dealer")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .content(json))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getAllDealer() throws Exception {
+        Dealer dealer = Dealer.builder().id(UUID.randomUUID()).name("Name test").build();
+        Mockito.doReturn(Arrays.asList(dealer)).when(dealerUseCase).getAllDealer();
+        mvc.perform(get("/agency/api/v1/get-all-dealer"))
                 .andExpect(status().isOk());
     }
 }

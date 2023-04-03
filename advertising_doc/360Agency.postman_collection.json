@@ -36,13 +36,34 @@
 			"response": []
 		},
 		{
+			"name": "get-all-dealer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/agency/api/v1/get-all-dealer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"api",
+						"v1",
+						"get-all-dealer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "set-tier-limit",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"tier\": 2\r\n}",
+					"raw": "{\r\n    \"tier\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,7 +101,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/agency/api/v1/create-listing/76881ede-15b8-43ff-aafc-46eed720aad5",
+					"raw": "localhost:8080/agency/api/v1/create-listing/3b204aaf-7844-4931-baf5-4377db51bde7",
 					"host": [
 						"localhost"
 					],
@@ -90,7 +111,7 @@
 						"api",
 						"v1",
 						"create-listing",
-						"76881ede-15b8-43ff-aafc-46eed720aad5"
+						"3b204aaf-7844-4931-baf5-4377db51bde7"
 					]
 				}
 			},
@@ -99,11 +120,11 @@
 		{
 			"name": "update-listing",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"vehicle\": \"Renault 3\",\r\n    \"price\": 1283.456\r\n}",
+					"raw": "{\r\n    \"vehicle\": \"Renault 4\",\r\n    \"price\": 1283.456\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,7 +132,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/agency/api/v1/update-listing/479a4dd5-c8ef-4323-988b-6042529e3b0f",
+					"raw": "localhost:8080/agency/api/v1/update-listing/16b8d4ff-37d6-447f-9dc0-381caec216ab",
 					"host": [
 						"localhost"
 					],
@@ -121,7 +142,7 @@
 						"api",
 						"v1",
 						"update-listing",
-						"479a4dd5-c8ef-4323-988b-6042529e3b0f"
+						"16b8d4ff-37d6-447f-9dc0-381caec216ab"
 					]
 				}
 			},
@@ -153,10 +174,10 @@
 		{
 			"name": "publish-listing",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/agency/api/v1/publish-listing/479a4dd5-c8ef-4323-988b-6042529e3b0f",
+					"raw": "localhost:8080/agency/api/v1/publish-listing/16b8d4ff-37d6-447f-9dc0-381caec216ab",
 					"host": [
 						"localhost"
 					],
@@ -166,7 +187,7 @@
 						"api",
 						"v1",
 						"publish-listing",
-						"479a4dd5-c8ef-4323-988b-6042529e3b0f"
+						"16b8d4ff-37d6-447f-9dc0-381caec216ab"
 					]
 				}
 			},
@@ -175,10 +196,10 @@
 		{
 			"name": "un-publish-listing",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/agency/api/v1/un-publish-listing/479a4dd5-c8ef-4323-988b-6042529e3b0f",
+					"raw": "localhost:8080/agency/api/v1/un-publish-listing/16b8d4ff-37d6-447f-9dc0-381caec216ab",
 					"host": [
 						"localhost"
 					],
@@ -188,7 +209,7 @@
 						"api",
 						"v1",
 						"un-publish-listing",
-						"479a4dd5-c8ef-4323-988b-6042529e3b0f"
+						"16b8d4ff-37d6-447f-9dc0-381caec216ab"
 					]
 				}
 			},

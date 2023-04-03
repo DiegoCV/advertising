@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 import static co.com.agency.common.CommonExceptionMessages.DEALER_NOT_EXISTS;
@@ -58,4 +59,10 @@ class DealerUseCaseImplTest {
         });
     }
 
+    @Test
+    void getAllDealer() {
+        Dealer dealer = Dealer.builder().name("Test Dealer").build();
+        Mockito.doReturn(Arrays.asList(dealer)).when(dealerRepository).findAll();
+        assertNotNull(dealerUseCase.getAllDealer());
+    }
 }

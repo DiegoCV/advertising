@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.groups.Default;
 import java.util.List;
@@ -60,7 +57,7 @@ public interface ListingOperations {
                     schema = @Schema(implementation = ListingResponse.class))),
             @ApiResponse(responseCode = "400", description = "Wrong parameters or bad request",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @PostMapping(value = "/publish-listing/{listingId}", produces = {"application/json"})
+    @PutMapping(value = "/publish-listing/{listingId}", produces = {"application/json"})
     ResponseEntity<ListingResponse> publishListing(
             @Parameter(description = "Information related to listing", required = true)
             @PathVariable("listingId") UUID listingId
@@ -73,7 +70,7 @@ public interface ListingOperations {
                     schema = @Schema(implementation = ListingResponse.class))),
             @ApiResponse(responseCode = "400", description = "Wrong parameters or bad request",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @PostMapping(value = "/un-publish-listing/{listingId}", produces = {"application/json"})
+    @PutMapping(value = "/un-publish-listing/{listingId}", produces = {"application/json"})
     ResponseEntity<ListingResponse> unPublishListing(
             @Parameter(description = "Information related to listing", required = true)
             @PathVariable("listingId") UUID listingId
@@ -86,7 +83,7 @@ public interface ListingOperations {
                     schema = @Schema(implementation = ListingResponse.class))),
             @ApiResponse(responseCode = "400", description = "Wrong parameters or bad request",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @PostMapping(value = "/update-listing/{listingId}", produces = {"application/json"})
+    @PutMapping(value = "/update-listing/{listingId}", produces = {"application/json"})
     ResponseEntity<ListingResponse> updateListing(
             @Parameter(description = "Information related to the id listing", required = true)
             @PathVariable("listingId") UUID listingId,
